@@ -6,12 +6,15 @@ import kotlin.math.pow
 
 open class Node(var priority : Int, var posx : Float = 0f, var posy : Float = 0f){
 
+    //Größes des Kreises
     open val size : Float = 20f
 
+    //Zeichnen des Kreises
     open fun draw(shapeRenderer: ShapeRenderer){
         shapeRenderer.circle(posx, posy, size)
     }
 
+    //Updaten der Position der Node
     open fun updatePosition(index : Int, listSize : Int){
         var row = MathUtils.floor(MathUtils.log(2f, (index + 1).toFloat()))
         var column = (index + 1) - 2.toDouble().pow(row.toDouble())
