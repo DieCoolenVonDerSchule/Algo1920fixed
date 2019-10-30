@@ -6,7 +6,7 @@ import kotlin.math.pow
 
 open class Node(var priority : Int, var posx : Float = 0f, var posy : Float = 0f){
 
-    open val size : Float = 5f
+    open val size : Float = 20f
 
     open fun draw(shapeRenderer: ShapeRenderer){
         shapeRenderer.circle(posx, posy, size)
