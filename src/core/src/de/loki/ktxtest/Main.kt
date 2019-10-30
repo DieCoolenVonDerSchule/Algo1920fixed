@@ -23,6 +23,7 @@ class Main : ApplicationAdapter() {
     lateinit var camera : OrthographicCamera
     lateinit var viewport : Viewport
     lateinit var heap : BinaryHeap
+    lateinit var biHeap : BinominalHeap
     var dotTimer : Float = 0f
 
     override fun create() {
@@ -37,6 +38,8 @@ class Main : ApplicationAdapter() {
 
         camera.position.set(VIEWPORT_WIDTH / 2f, VIEWPORT_WIDTH * aspect_ratio / 2f, 0f)
         heap = BinaryHeap()
+        biHeap = BinominalHeap()
+        biHeap.logAll()
     }
 
     override fun render() {
