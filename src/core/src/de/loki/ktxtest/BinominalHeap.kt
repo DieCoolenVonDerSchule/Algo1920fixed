@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import kotlin.random.Random
 
 class BinominalHeap (){
+    //Die Liste alle Trees im Heap
     var heap = mutableListOf<Tree>()
 
     init {
@@ -12,40 +13,78 @@ class BinominalHeap (){
         }
     }
 
-    open fun addNode(priority : Int){
-        var found = false
-        var degree = 0
-        var tree : Tree = BinominalTreeDZero(Node(priority))
-
-        while(true){
-            for(n in heap){
-                if(n.degree == degree) found = true
-            }
-
-            if(!found){
-                heap.add(tree)
-                break
-            }
-            else{
-                for(t in heap){
-                    if(t.degree == degree){
-                        degree++
-                        if(t.rootPriority <= tree.rootPriority)tree = merge(degree, t, tree)
-                        else tree = merge(degree, tree, t)
-
+    open fun correctTree(){
+        var correction = true
+        while(correction){
+            correction = false
+            for(t in heap){
+                for(t2 in heap){
+                    if(t.degree == t2.degree && t != t2){
+                        heap.add(merge(t.degree, t, t2))
                         heap.remove(t)
+                        heap.remove(t2)
+                        correction = true
+                        Gdx.app.log("Debug", "Correction!")
                         break
                     }
                 }
-
             }
-
-            found = false
         }
-
     }
 
-    open fun merge(degree : Int, tree1 : Tree, tree2 : Tree) : BinominalTree = BinominalTree(tree1.rootPriority,degree+1, tree1, tree2)
+    open fun addNode(priority : Int){
+        heap.add(BinominalTreeDZero(Node(priority)))
+        correctTree()
+    }
+
+//    open fun addNode(priority : Int){
+//        var found = false
+//        //Degree des Baums der grad verwaltet wird
+//        var degree = 0
+//        var tree : Tree = BinominalTreeDZero(Node(priority))
+//
+//        while(true){
+//            for(n in heap){
+//                if(n.degree == degree) found = true
+//            }
+//
+//            if(!found){
+//                heap.add(tree)
+//                break
+//            }
+//            else{
+//                for(t in heap){
+//                    if(t.degree == degree){
+//                        degree++
+//                        if(t.rootPriority <= tree.rootPriority)tree = merge(degree, t, tree)
+//                        else tree = merge(degree, tree, t)
+//
+//                        heap.remove(t)
+//                        break
+//                    }
+//                }
+//
+//            }
+//
+//            found = false
+//        }
+//
+//    }
+
+    open fun isCorrect() : Boolean{
+        var correct = true
+        for(t in heap){
+            for(t2 in heap){
+                if(t.degree == t2.degree && !t.equals(t2)) correct = false
+            }
+        }
+        return correct
+    }
+
+    open fun merge(degree : Int, tree1 : Tree, tree2 : Tree) : BinominalTree{
+        return if (tree1.rootPriority <= tree2.rootPriority) BinominalTree(tree1.rootPriority,degree+1, tree1, tree2)
+        else BinominalTree(tree2.rootPriority,degree+1, tree2, tree1)
+    }
 
     open fun logAll(){
         for(t in heap){
