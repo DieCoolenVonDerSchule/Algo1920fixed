@@ -91,7 +91,7 @@ class BinaryHeap(){
         }
     }
 
-    fun addNode(priority : Int){
+    fun addNode(priority : Int){                       // Knoten hinzufügen
         heap.add(Node(priority))
         heapifyUp()
     }
@@ -103,20 +103,20 @@ class BinaryHeap(){
     }
 
 
-    fun swap(indexOne: Int, indexTwo: Int) {
+    fun swap(indexOne: Int, indexTwo: Int) {         // Vertauschen von zwei Knoten
         val temp = heap[indexOne]
         heap[indexOne] = heap[indexTwo]
         heap[indexTwo] = temp
     }
 
 
-    fun peek() : Int {
+    fun peek() : Int {                              // liefert die Wurzel des Baums
         if (heap.size == 0) throw IllegalStateException()
         return heap[0].priority
     }
 
 
-    fun poll() : Node {
+    fun poll() : Node {                             // liefert und entfernt die Wurzel des Baums
         if (heap.size == 0) throw IllegalStateException()
         val item : Node = heap[0]
         heap[0] = heap[heap.size - 1]
@@ -132,7 +132,7 @@ class BinaryHeap(){
     }
 
 
-    fun heapifyUp() {
+    fun heapifyUp() {                               // Sortieren des letzten Knotens nach oben
         var index = heap.size - 1
         while (hasParent(index) && parent(index) > heap[index].priority) {
             swap(getParentIndex(index),index)
@@ -143,7 +143,7 @@ class BinaryHeap(){
 
 
 
-    fun heapifyDown() {
+    fun heapifyDown() {                          // Sortieren des ersten Knotens (Wurzel) nach unten
         var index = 0
         while (hasLeftChild(index)) {
             var smallerChildIndex : Int = getLeftChildIndex(index)
