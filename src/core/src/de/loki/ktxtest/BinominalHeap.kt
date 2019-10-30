@@ -13,10 +13,12 @@ class BinominalHeap (){
         }
     }
 
+    //Entnehmen der kleinsten Node-
     open fun poll() : Node{
         var smallest = Int.MAX_VALUE
         lateinit var tree : Tree
 
+        //herrausfinden des kleinsten Wertes der Trees im Heap
         for(t in heap){
             if(t.rootPriority < smallest){
                 smallest = t.rootPriority
@@ -26,13 +28,16 @@ class BinominalHeap (){
         return split(tree)
     }
 
+    //findet die Node mit dem kleinsten Wertes innerhalb des Trees (Root) und fügt die Teilbäume dem Heap hinzu
     open fun split(tree : Tree) : Node{
         lateinit var node : Node
+        //falls der Wert der Root ist
         if(tree is BinominalTreeDZero){
             node = tree.node
             heap.remove(tree)
             return node
         }
+        //removen des zu bearbeiteten Trees, adden des Teilbaums zum Heap und Rekursion für die kleinere Hälfte
         else if(tree is BinominalTree){
             heap.add(tree.rightTree)
             node = split(tree.leftTree)
@@ -41,13 +46,16 @@ class BinominalHeap (){
         return node
     }
 
+    //Sorgt dafür, das der Heap nur einen Baum des jeweiligen Grades hat
     open fun correctTree(){
         var correction = true
         while(correction){
             correction = false
             for(t in heap){
                 for(t2 in heap){
+                    //kontrolliert ob die Iterierten Bäume der selbe sind
                     if(t.degree == t2.degree && t != t2){
+                        //Mergen der Bäume
                         heap.add(merge(t.degree, t, t2))
                         heap.remove(t)
                         heap.remove(t2)
@@ -60,45 +68,14 @@ class BinominalHeap (){
         }
     }
 
+    //Hinzufügen einer Node bzw. eines Trees vom Grad 0
     open fun addNode(priority : Int){
         heap.add(BinominalTreeDZero(Node(priority)))
+        //Korrigieren des Baums
         correctTree()
     }
 
-//    open fun addNode(priority : Int){
-//        var found = false
-//        //Degree des Baums der grad verwaltet wird
-//        var degree = 0
-//        var tree : Tree = BinominalTreeDZero(Node(priority))
-//
-//        while(true){
-//            for(n in heap){
-//                if(n.degree == degree) found = true
-//            }
-//
-//            if(!found){
-//                heap.add(tree)
-//                break
-//            }
-//            else{
-//                for(t in heap){
-//                    if(t.degree == degree){
-//                        degree++
-//                        if(t.rootPriority <= tree.rootPriority)tree = merge(degree, t, tree)
-//                        else tree = merge(degree, tree, t)
-//
-//                        heap.remove(t)
-//                        break
-//                    }
-//                }
-//
-//            }
-//
-//            found = false
-//        }
-//
-//    }
-
+    //Funktion zum Kontrollieren, ob der Heap vom jeden Baum Grad nur einen hat
     open fun isCorrect() : Boolean{
         var correct = true
         for(t in heap){
@@ -109,11 +86,13 @@ class BinominalHeap (){
         return correct
     }
 
+    //Mergen von zwei Trees bei dem der kleinere links eingefügt wird
     open fun merge(degree : Int, tree1 : Tree, tree2 : Tree) : BinominalTree{
         return if (tree1.rootPriority <= tree2.rootPriority) BinominalTree(tree1.rootPriority,degree+1, tree1, tree2)
         else BinominalTree(tree2.rootPriority,degree+1, tree2, tree1)
     }
 
+    //Für Kontrolle Zwecke, ausgeben der Prioritäten des Heaps
     open fun logAll(){
         for(t in heap){
             log(t)
@@ -127,6 +106,7 @@ class BinominalHeap (){
         Gdx.app.log("Debug", "smallest: " + smallest)
     }
 
+    //Rekursives Ausgeben der Prioritäten des Baums
     open fun log(tree : Tree){
         if(tree is BinominalTree){
             log(tree.leftTree)

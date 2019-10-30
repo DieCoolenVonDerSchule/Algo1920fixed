@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import de.loki.ktxtest.Main
 
+//Main Funktion zum Starten des Programms
 object DesktopLauncher {
     @JvmStatic
     fun main(arg: Array<String>) {

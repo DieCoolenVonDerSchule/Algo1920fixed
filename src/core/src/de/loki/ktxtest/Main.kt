@@ -12,31 +12,39 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
 class Main : ApplicationAdapter() {
+    //Statische Werte für die Grafische Oberfläsche
     companion object{
         var aspect_ratio = 0f
-        val VIEWPORT_WIDTH = 3840f
+        const val VIEWPORT_WIDTH = 3840f
         var VIEWPORT_HEIGHT = 0f
         var scale = 0f
     }
 
+    //Benötigte Objekte für die Grafische Oberfläsche
     lateinit var shapeRenderer: ShapeRenderer
     lateinit var camera : OrthographicCamera
     lateinit var viewport : Viewport
-    lateinit var heap : BinaryHeap
-    lateinit var biHeap : BinominalHeap
     var dotTimer : Float = 0f
 
+    //Erstellen des BinaryHeaps und des BinominalHeaps
+    lateinit var heap : BinaryHeap
+    lateinit var biHeap : BinominalHeap
+
     override fun create() {
+        //Errechnen der statischen Werte
         aspect_ratio = Gdx.graphics.height / Gdx.graphics.width.toFloat()
         scale = Gdx.graphics.getWidth() / VIEWPORT_WIDTH
         VIEWPORT_HEIGHT = VIEWPORT_WIDTH*aspect_ratio
 
+        //Erzeugen der Objete für die grafische Oberfläsche
         shapeRenderer = ShapeRenderer()
         camera = OrthographicCamera()
         viewport = FitViewport(VIEWPORT_WIDTH, VIEWPORT_WIDTH*aspect_ratio, camera)
         viewport.apply()
 
         camera.position.set(VIEWPORT_WIDTH / 2f, VIEWPORT_WIDTH * aspect_ratio / 2f, 0f)
+
+        //Erzeugen der Heaps und Log Funktion als Test
         heap = BinaryHeap()
         biHeap = BinominalHeap()
         Gdx.app.log("Debug", "Removed: " + biHeap.poll().priority)
@@ -44,10 +52,12 @@ class Main : ApplicationAdapter() {
         biHeap.logAll()
     }
 
+    //Wird 60 mal die Sekunde ausgeführt
     override fun render() {
         Gdx.gl.glClearColor(0f, 0f, 0f, 0f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
+        //Hinzufügen eines Knotens alle 0.2 Sekunden falls nicht auskommentiert
         //dotTimer += Gdx.graphics.deltaTime
         if(dotTimer >= 0.2f){
             heap.addNode(8)
@@ -55,6 +65,7 @@ class Main : ApplicationAdapter() {
             dotTimer = 0f
         }
 
+        //Zeichnen der Nodes
         shapeRenderer.projectionMatrix = camera.combined
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
 
@@ -64,7 +75,7 @@ class Main : ApplicationAdapter() {
         shapeRenderer.end()
 
     }
-
+    //Notwendige Funktionen für die Library
     override fun dispose() {
         shapeRenderer.dispose()
     }
