@@ -8,9 +8,37 @@ class BinominalHeap (){
     var heap = mutableListOf<Tree>()
 
     init {
-        for(i in 0..10){
+        for(i in 0 until 10){
             addNode(Random.nextInt(0, 10000))
         }
+    }
+
+    open fun poll() : Node{
+        var smallest = Int.MAX_VALUE
+        lateinit var tree : Tree
+
+        for(t in heap){
+            if(t.rootPriority < smallest){
+                smallest = t.rootPriority
+                tree = t
+            }
+        }
+        return split(tree)
+    }
+
+    open fun split(tree : Tree) : Node{
+        lateinit var node : Node
+        if(tree is BinominalTreeDZero){
+            node = tree.node
+            heap.remove(tree)
+            return node
+        }
+        else if(tree is BinominalTree){
+            heap.add(tree.rightTree)
+            node = split(tree.leftTree)
+            heap.remove(tree)
+        }
+        return node
     }
 
     open fun correctTree(){
