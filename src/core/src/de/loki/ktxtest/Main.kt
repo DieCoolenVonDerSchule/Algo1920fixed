@@ -39,6 +39,8 @@ class Main : ApplicationAdapter() {
         camera.position.set(VIEWPORT_WIDTH / 2f, VIEWPORT_WIDTH * aspect_ratio / 2f, 0f)
         heap = BinaryHeap()
         biHeap = BinominalHeap()
+        Gdx.app.log("Debug", "Removed: " + biHeap.poll().priority)
+
         biHeap.logAll()
     }
 
