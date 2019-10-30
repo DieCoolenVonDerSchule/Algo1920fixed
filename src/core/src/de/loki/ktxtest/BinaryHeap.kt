@@ -36,30 +36,20 @@ class BinaryHeap(){
 
         updateAllNodes()
 
-    //    addNode(5)
-    //    addNode(18)
-    //    addNode(7)
-    //    addNode(12)
-    //    addNode(8)
-    //    addNode(75)
-
+    /*    addNode(5)
+        addNode(18)
+        addNode(7)
+        addNode(12)
+        addNode(8)
+        addNode(75)
+    */
 
      //   updateAllNodes()
 
 
 
-        // TEST
-
-      //  println(heap[0].priority)
-      //  println(heap[1].priority)
-      //  println(heap[2].priority)
-      //  println(heap[3].priority)
-      //  println(heap[4].priority)
-      //  println(heap[5].priority)
-
-      //  println("")
-      // println(poll())
-      //  println("")
+        /*
+        // POLL TEST
 
         println(heap[0].priority)
         println(heap[1].priority)
@@ -68,6 +58,19 @@ class BinaryHeap(){
         println(heap[4].priority)
         println(heap[5].priority)
 
+        println("")
+       println(poll().priority)
+        println("")
+
+        println(heap[0].priority)
+        println(heap[1].priority)
+        println(heap[2].priority)
+        println(heap[3].priority)
+        println(heap[4].priority)
+        println(heap[5].priority)
+
+        updateAllNodes()
+*/
 
 
     }
@@ -113,9 +116,9 @@ class BinaryHeap(){
     }
 
 
-    fun poll() : Int {
+    fun poll() : Node {
         if (heap.size == 0) throw IllegalStateException()
-        val item : Int = heap[0].priority
+        val item : Node = heap[0]
         heap[0] = heap[heap.size - 1]
         heapifyDown()
         return item
