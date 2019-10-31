@@ -1,6 +1,9 @@
 package de.loki.ktxtest
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.GlyphLayout
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import kotlin.random.Random
 
@@ -79,6 +82,12 @@ class BinaryHeap(){
         shapeRenderer.setColor(Color.RED)
         for(n in heap){
             n.draw(shapeRenderer)
+        }
+    }
+
+    fun drawAllText(batch: SpriteBatch, font: BitmapFont, layout: GlyphLayout){
+        for(n in heap){
+            n.drawText(batch, font, layout)
         }
     }
 

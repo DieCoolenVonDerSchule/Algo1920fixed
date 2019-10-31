@@ -10,6 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.GlyphLayout
+import kotlin.random.Random
+
 
 class Main : ApplicationAdapter() {
     //Statische Werte für die Grafische Oberfläsche
@@ -24,6 +28,9 @@ class Main : ApplicationAdapter() {
     lateinit var shapeRenderer: ShapeRenderer
     lateinit var camera : OrthographicCamera
     lateinit var viewport : Viewport
+    lateinit var font : BitmapFont
+    lateinit var layout : GlyphLayout
+    lateinit var batch : SpriteBatch
     var dotTimer : Float = 0f
 
     //Erstellen des BinaryHeaps und des BinominalHeaps
@@ -36,6 +43,12 @@ class Main : ApplicationAdapter() {
         scale = Gdx.graphics.getWidth() / VIEWPORT_WIDTH
         VIEWPORT_HEIGHT = VIEWPORT_WIDTH*aspect_ratio
 
+        font = BitmapFont()
+        font.data.scale(4f)
+        font.region.texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        layout = GlyphLayout()
+        batch = SpriteBatch()
+
         //Erzeugen der Objete für die grafische Oberfläsche
         shapeRenderer = ShapeRenderer()
         camera = OrthographicCamera()
@@ -47,7 +60,6 @@ class Main : ApplicationAdapter() {
         //Erzeugen der Heaps und Log Funktion als Test
         heap = BinaryHeap()
         biHeap = BinominalHeap()
-        Gdx.app.log("Debug", "Removed: " + biHeap.poll().priority)
 
         biHeap.logAll()
     }
@@ -58,10 +70,12 @@ class Main : ApplicationAdapter() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         //Hinzufügen eines Knotens alle 0.2 Sekunden falls nicht auskommentiert
-        //dotTimer += Gdx.graphics.deltaTime
+        dotTimer += Gdx.graphics.deltaTime
         if(dotTimer >= 0.2f){
-            heap.addNode(8)
-            heap.updateAllNodes()
+            biHeap.addNode(Random.nextInt(0, 100))
+            biHeap.clearLines()
+            biHeap.updateAllNodes()
+            biHeap.addAllLines()
             dotTimer = 0f
         }
 
@@ -69,10 +83,18 @@ class Main : ApplicationAdapter() {
         shapeRenderer.projectionMatrix = camera.combined
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
 
-        heap.drawAllLines(shapeRenderer)
-        heap.drawAll(shapeRenderer)
+        //heap.drawAllLines(shapeRenderer)
+        //heap.drawAll(shapeRenderer)
+        biHeap.drawAllLines(shapeRenderer)
+        biHeap.drawAllTrees(shapeRenderer)
 
         shapeRenderer.end()
+
+        batch.projectionMatrix = camera.combined
+        batch.begin()
+        //heap.drawAllText(batch, font, layout)
+        biHeap.drawAllText(batch, font, layout)
+        batch.end()
 
     }
     //Notwendige Funktionen für die Library

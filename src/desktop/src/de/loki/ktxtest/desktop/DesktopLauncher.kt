@@ -10,8 +10,8 @@ object DesktopLauncher {
     fun main(arg: Array<String>) {
         val config = LwjglApplicationConfiguration()
 
-        config.width = 1920
-        config.height = 1080
+        config.width = 2560
+        config.height = 1440
         config.fullscreen = false
         config.resizable = false
 
