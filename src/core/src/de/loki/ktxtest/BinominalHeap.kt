@@ -97,6 +97,7 @@ class BinominalHeap (){
         else BinominalTree(tree2.rootNode,degree+1, tree2, tree1)
     }
 
+    //Legt die Position aller Nodes auf dem Bildschirm fest
     open fun updateAllNodes(){
         var width = (2.toDouble().pow((Integer.toBinaryString(nodeCount).length - 1).toDouble())).toInt()
 
@@ -106,6 +107,8 @@ class BinominalHeap (){
         }
     }
 
+    //Funktion die Rekursiv ausgeführt wird, für den Fall, das der Übergebene Tree ein Binominal Tree ist
+    //Zusätzlich hinzufügen der Linien zwischen zwei Teilbäumen des Grades 0
     open fun updateTree(depthX : Int, depthY : Int, tree : BinominalTree, offset : Int){
         if(tree.leftTree is BinominalTreeDZero && tree.rightTree is BinominalTreeDZero){
             var maxYDepth = Integer.toBinaryString(nodeCount).length+1
@@ -125,6 +128,7 @@ class BinominalHeap (){
         }
     }
 
+    //Funktion die Rekursiv ausgeführt wird, für den Fall, das der Übergebene Tree ein Binominal Tree 0ten Grades ist
     open fun updateTree(depthX : Int, depthY : Int, tree : BinominalTreeDZero, offset : Int){
         var maxYDepth = Integer.toBinaryString(nodeCount).length+1
         var posx = (Main.VIEWPORT_WIDTH / (2.toDouble().pow((Integer.toBinaryString(nodeCount).length - 1).toDouble()) + 1) * (depthX+offset+1)).toFloat()
@@ -133,20 +137,22 @@ class BinominalHeap (){
         tree.node.posy = (Main.VIEWPORT_HEIGHT / maxYDepth * (depthY+1))
     }
 
+    //Zeichnet alle Linien auf dem Bilschirm
     open fun drawAllLines(shapeRenderer: ShapeRenderer){
-        //Gdx.app.log("Debug", "Lines: " + lines)
         shapeRenderer.setColor(Color.WHITE)
         for(i in 0 until lines.size/2){
             shapeRenderer.rectLine(lines[i*2].x, lines[i*2].y, lines[i*2+1].x, lines[i*2+1].y, 10f)
         }
     }
 
+    //Fügt alle notwendigen Linien der Liste aller Linien hinzu
     open fun addAllLines(){
         for(t in heap){
             if(t is BinominalTree)addLines(t)
         }
     }
 
+    //Rekursive Funktion zum hinzufügen der Linien zwischen den Teilbäumen
     open fun addLines(tree : BinominalTree){
         if(tree.leftTree is BinominalTree && tree.rightTree is BinominalTree){
             lines.add(Vector2(tree.rootNode.posx, tree.rootNode.posy))
@@ -174,6 +180,7 @@ class BinominalHeap (){
         }
     }
 
+    //Funktion zum Zeichnen aller Bäume
     open fun drawAllTrees(shapeRenderer: ShapeRenderer){
         shapeRenderer.setColor(Color.RED)
         for(t in heap){
@@ -181,6 +188,7 @@ class BinominalHeap (){
         }
     }
 
+    //Rekursive Funktion zum Zeichnen eines Baumes
     open fun drawTree(tree : Tree, shapeRenderer: ShapeRenderer){
         if(tree is BinominalTree){
             drawTree(tree.rightTree, shapeRenderer)
@@ -207,6 +215,7 @@ class BinominalHeap (){
         }
     }
 
+    //Leeren der List aller Linien
     open fun clearLines(){
         lines.clear()
     }
