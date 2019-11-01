@@ -8,72 +8,25 @@ class BinaryHeap(){
 
     var heap = mutableListOf<Node>()
 
-    fun getLeftChildIndex(index : Int) = 2 * index + 1
-    fun getRightChildIndex(index : Int) = 2 * index + 2
-    fun getParentIndex(childIndex: Int) = (childIndex - 1) / 2
+    fun getLeftChildIndex(index : Int) = 2 * index + 1                      // liefert den linken Child-Index der Node
+    fun getRightChildIndex(index : Int) = 2 * index + 2                     // liefert den rechten Child-Index der Node
+    fun getParentIndex(childIndex: Int) = (childIndex - 1) / 2              // liefert den Parent-Index der Node
 
-    fun hasLeftChild(index : Int) = getLeftChildIndex(index) < heap.size
-    fun hasRightChild(index : Int) = getRightChildIndex(index) < heap.size
-    fun hasParent(index: Int) : Boolean = getParentIndex(index) >= 0
+    fun hasLeftChild(index : Int) = getLeftChildIndex(index) < heap.size    // liefert True wenn linkes Child vorhanden
+    fun hasRightChild(index : Int) = getRightChildIndex(index) < heap.size  // liefert True wenn rechtes Child vorhanden
+    fun hasParent(index: Int) : Boolean = getParentIndex(index) >= 0        // liefert True wenn Parent vorhanden
 
-    fun getLeftChildX(index : Int) = heap[getLeftChildIndex(index)].posx
-    fun getLeftChildY(index : Int) = heap[getLeftChildIndex(index)].posy
+    fun getLeftChildX(index : Int) = heap[getLeftChildIndex(index)].posx    // liefert die X Position des linkes Childs
+    fun getLeftChildY(index : Int) = heap[getLeftChildIndex(index)].posy    // liefert die Y Position des linkes Childs
 
-    fun getRightChildX(index : Int) = heap[getRightChildIndex(index)].posx
-    fun getRightChildY(index : Int) = heap[getRightChildIndex(index)].posy
+    fun getRightChildX(index : Int) = heap[getRightChildIndex(index)].posx  // liefert die X Position des rechten Childs
+    fun getRightChildY(index : Int) = heap[getRightChildIndex(index)].posy  // liefert die Y Position des rechten Childs
 
-    fun leftChild(index: Int) : Int = heap[getLeftChildIndex(index)].priority
-    fun rightChild(index: Int) : Int = heap[getRightChildIndex(index)].priority
-    fun parent(index: Int) : Int = heap[getParentIndex(index)].priority
-
-
-    init {
-
-        for(i in 0 until 100){
-            val r : Int = Random.nextInt(1,100)
-            addNode(r)
-        }
-
-        updateAllNodes()
-
-    /*    addNode(5)
-        addNode(18)
-        addNode(7)
-        addNode(12)
-        addNode(8)
-        addNode(75)
-    */
-
-     //   updateAllNodes()
+    fun leftChild(index: Int) : Int = heap[getLeftChildIndex(index)].priority // liefert die Priority des linken Childs
+    fun rightChild(index: Int) : Int = heap[getRightChildIndex(index)].priority//liefert die Priority des rechten Childs
+    fun parent(index: Int) : Int = heap[getParentIndex(index)].priority     // liefert die Priority der Parent Node
 
 
-
-        /*
-        // POLL TEST
-
-        println(heap[0].priority)
-        println(heap[1].priority)
-        println(heap[2].priority)
-        println(heap[3].priority)
-        println(heap[4].priority)
-        println(heap[5].priority)
-
-        println("")
-       println(poll().priority)
-        println("")
-
-        println(heap[0].priority)
-        println(heap[1].priority)
-        println(heap[2].priority)
-        println(heap[3].priority)
-        println(heap[4].priority)
-        println(heap[5].priority)
-
-        updateAllNodes()
-*/
-
-
-    }
 
     fun drawAll(shapeRenderer: ShapeRenderer){
         shapeRenderer.setColor(Color.RED)
@@ -91,32 +44,32 @@ class BinaryHeap(){
         }
     }
 
-    fun addNode(priority : Int){                       // Knoten hinzufügen
+    fun addNode(priority : Int){                       // neuer Knoten wird dem Heap hinzugefügt
         heap.add(Node(priority))
         heapifyUp()
     }
 
-    fun updateAllNodes(){
+    fun updateAllNodes(){                             // legt die Position aller Knoten auf dem Bildschirm fest
         for(i in 0 until heap.size){
             heap[i].updatePosition(i, heap.size)
         }
     }
 
 
-    fun swap(indexOne: Int, indexTwo: Int) {         // Vertauschen von zwei Knoten
+    fun swap(indexOne: Int, indexTwo: Int) {          // Knoten mit IndexOne und IndexTwo werden vertauscht
         val temp = heap[indexOne]
         heap[indexOne] = heap[indexTwo]
         heap[indexTwo] = temp
     }
 
 
-    fun peek() : Int {                              // liefert die Wurzel des Baums
+    fun peek() : Node {                               // liefert die Wurzel des Baums
         if (heap.size == 0) throw IllegalStateException()
-        return heap[0].priority
+        return heap[0]
     }
 
 
-    fun poll() : Node {                             // liefert und entfernt die Wurzel des Baums
+    fun poll() : Node {                              // liefert und entfernt die Wurzel des Baums
         if (heap.size == 0) throw IllegalStateException()
         val item : Node = heap[0]
         heap[0] = heap[heap.size - 1]
@@ -125,14 +78,8 @@ class BinaryHeap(){
 
     }
 
-    fun add(item: Int) {
-        heap[heap.size] = Node(item)
-        heapifyUp()
 
-    }
-
-
-    fun heapifyUp() {                               // Sortieren des letzten Knotens nach oben
+    fun heapifyUp() {                                // Sortieren des letzten Knotens nach oben
         var index = heap.size - 1
         while (hasParent(index) && parent(index) > heap[index].priority) {
             swap(getParentIndex(index),index)
@@ -142,8 +89,7 @@ class BinaryHeap(){
     }
 
 
-
-    fun heapifyDown() {                          // Sortieren des ersten Knotens (Wurzel) nach unten
+    fun heapifyDown() {                             // Sortieren des ersten Knotens (Wurzel) nach unten
         var index = 0
         while (hasLeftChild(index)) {
             var smallerChildIndex : Int = getLeftChildIndex(index)
