@@ -163,7 +163,7 @@ class BinominalHeap (){
         }
     }
 
-    //Für Kontrolle Zwecke, ausgeben der Prioritäten des Heaps
+    //Für Kontrollzwecke, zeichnet die Werte aller Knoten
     open fun drawAllText(batch: SpriteBatch, font: BitmapFont, layout: GlyphLayout){
         for(t in heap){
             drawText(t, batch, font, layout)

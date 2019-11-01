@@ -27,24 +27,24 @@ class BinaryHeap(){
 
     fun leftChild(index: Int) : Int = heap[getLeftChildIndex(index)].priority // liefert die Priority des linken Childs
     fun rightChild(index: Int) : Int = heap[getRightChildIndex(index)].priority//liefert die Priority des rechten Childs
-    fun parent(index: Int) : Int = heap[getParentIndex(index)].priority     // liefert die Priority der Parent Node
+    fun parent(index: Int) : Int = heap[getParentIndex(index)].priority     // liefert die Priority des Parent Node
 
 
 
-    fun drawAll(shapeRenderer: ShapeRenderer){
+    fun drawAll(shapeRenderer: ShapeRenderer){                             // zeichnet alle Knoten
         shapeRenderer.setColor(Color.RED)
         for(n in heap){
             n.draw(shapeRenderer)
         }
     }
 
-    fun drawAllText(batch: SpriteBatch, font: BitmapFont, layout: GlyphLayout){
+    fun drawAllText(batch: SpriteBatch, font: BitmapFont, layout: GlyphLayout){  // zeichnet die Werte aller Knoten
         for(n in heap){
             n.drawText(batch, font, layout)
         }
     }
 
-    fun drawAllLines(shapeRenderer: ShapeRenderer){
+    fun drawAllLines(shapeRenderer: ShapeRenderer){                      // zeichnet die Linien zwischen den Knoten
         shapeRenderer.setColor(Color.WHITE)
 
         for(i in 0 until heap.size){
