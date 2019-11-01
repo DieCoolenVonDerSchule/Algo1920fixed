@@ -22,6 +22,7 @@ class Main : ApplicationAdapter() {
         const val VIEWPORT_WIDTH = 3840f
         var VIEWPORT_HEIGHT = 0f
         var scale = 0f
+        var binary = false //true = Binary Heap wird gezeichnet - false = Binominal Heap wird gezeichnet
     }
 
     //Benötigte Objekte für die Grafische Oberfläsche
@@ -72,10 +73,17 @@ class Main : ApplicationAdapter() {
         //Hinzufügen eines Knotens alle 0.2 Sekunden falls nicht auskommentiert
         dotTimer += Gdx.graphics.deltaTime
         if(dotTimer >= 0.2f){
-            biHeap.addNode(Random.nextInt(0, 100))
-            biHeap.clearLines()
-            biHeap.updateAllNodes()
-            biHeap.addAllLines()
+
+            if(binary){
+                heap.addNode(Random.nextInt(0, 100))
+                heap.updateAllNodes()
+            }else{
+                biHeap.addNode(Random.nextInt(0, 100))
+                biHeap.clearLines()
+                biHeap.updateAllNodes()
+                biHeap.addAllLines()
+            }
+
             dotTimer = 0f
         }
 
@@ -83,17 +91,21 @@ class Main : ApplicationAdapter() {
         shapeRenderer.projectionMatrix = camera.combined
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
 
-        //heap.drawAllLines(shapeRenderer)
-        //heap.drawAll(shapeRenderer)
-        biHeap.drawAllLines(shapeRenderer)
-        biHeap.drawAllTrees(shapeRenderer)
+        if(binary){
+            heap.drawAllLines(shapeRenderer)
+            heap.drawAll(shapeRenderer)
+        }
+        else{
+            biHeap.drawAllLines(shapeRenderer)
+            biHeap.drawAllTrees(shapeRenderer)
+        }
 
         shapeRenderer.end()
 
         batch.projectionMatrix = camera.combined
         batch.begin()
-        //heap.drawAllText(batch, font, layout)
-        biHeap.drawAllText(batch, font, layout)
+        if(binary)heap.drawAllText(batch, font, layout)
+        else biHeap.drawAllText(batch, font, layout)
         batch.end()
 
     }
