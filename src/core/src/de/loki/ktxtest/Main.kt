@@ -22,7 +22,7 @@ class Main : ApplicationAdapter() {
         const val VIEWPORT_WIDTH = 3840f
         var VIEWPORT_HEIGHT = 0f
         var scale = 0f
-        var binary = false //true = Binary Heap wird gezeichnet - false = Binominal Heap wird gezeichnet
+        var binary = true //true = Binary Heap wird gezeichnet - false = Binominal Heap wird gezeichnet
     }
 
     //Benötigte Objekte für die Grafische Oberfläsche
