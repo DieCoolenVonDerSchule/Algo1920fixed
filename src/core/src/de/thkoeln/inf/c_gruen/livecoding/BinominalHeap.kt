@@ -1,4 +1,4 @@
-package de.loki.ktxtest
+package de.thkoeln.inf.c_gruen.livecoding
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -17,7 +17,7 @@ class BinominalHeap (){
     var nodeCount = 0
 
     //Entnehmen der kleinsten Node-
-    open fun poll() : Node{
+    open fun poll() : Node {
         var smallest = Int.MAX_VALUE
         lateinit var tree : Tree
 
@@ -33,7 +33,7 @@ class BinominalHeap (){
     }
 
     //findet die Node mit dem kleinsten Wertes innerhalb des Trees (Root) und fügt die Teilbäume dem Heap hinzu
-    open fun split(tree : Tree) : Node{
+    open fun split(tree : Tree) : Node {
         lateinit var node : Node
         //falls der Wert der Root ist
         if(tree is BinominalTreeDZero){
@@ -92,9 +92,9 @@ class BinominalHeap (){
     }
 
     //Mergen von zwei Trees bei dem der kleinere links eingefügt wird
-    open fun merge(degree : Int, tree1 : Tree, tree2 : Tree) : BinominalTree{
-        return if (tree1.rootNode.priority <= tree2.rootNode.priority) BinominalTree(tree1.rootNode,degree+1, tree1, tree2)
-        else BinominalTree(tree2.rootNode,degree+1, tree2, tree1)
+    open fun merge(degree : Int, tree1 : Tree, tree2 : Tree) : BinominalTree {
+        return if (tree1.rootNode.priority <= tree2.rootNode.priority) BinominalTree(tree1.rootNode, degree + 1, tree1, tree2)
+        else BinominalTree(tree2.rootNode, degree + 1, tree2, tree1)
     }
 
     //Legt die Position aller Nodes auf dem Bildschirm fest

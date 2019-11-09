@@ -1,8 +1,8 @@
-package de.loki.ktxtest.desktop
+package de.thkoeln.inf.c_gruen.livecoding.desktop
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
-import de.loki.ktxtest.Main
+import de.thkoeln.inf.c_gruen.livecoding.Main
 
 //Main Funktion zum Starten des Programms
 object DesktopLauncher {

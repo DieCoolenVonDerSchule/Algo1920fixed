@@ -1,4 +1,4 @@
-package de.loki.ktxtest
+package de.thkoeln.inf.c_gruen.livecoding
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont

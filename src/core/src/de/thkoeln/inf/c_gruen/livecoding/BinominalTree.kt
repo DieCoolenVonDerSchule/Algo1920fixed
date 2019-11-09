@@ -1,4 +1,4 @@
-package de.loki.ktxtest
+package de.thkoeln.inf.c_gruen.livecoding
 
 //Oberklasse mit der Priorität der Root Node und dem Degree des Baums
 open class Tree(var rootNode: Node, val degree : Int)

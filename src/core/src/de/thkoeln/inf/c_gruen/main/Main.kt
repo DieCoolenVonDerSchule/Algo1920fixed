@@ -1,4 +1,4 @@
-package de.loki.ktxtest
+package de.thkoeln.inf.c_gruen.main
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
@@ -42,7 +42,7 @@ class Main : ApplicationAdapter() {
         //Errechnen der statischen Werte
         aspect_ratio = Gdx.graphics.height / Gdx.graphics.width.toFloat()
         scale = Gdx.graphics.getWidth() / VIEWPORT_WIDTH
-        VIEWPORT_HEIGHT = VIEWPORT_WIDTH*aspect_ratio
+        VIEWPORT_HEIGHT = VIEWPORT_WIDTH * aspect_ratio
 
         font = BitmapFont()
         font.data.scale(4f)
@@ -53,7 +53,7 @@ class Main : ApplicationAdapter() {
         //Erzeugen der Objete für die grafische Oberfläsche
         shapeRenderer = ShapeRenderer()
         camera = OrthographicCamera()
-        viewport = FitViewport(VIEWPORT_WIDTH, VIEWPORT_WIDTH*aspect_ratio, camera)
+        viewport = FitViewport(VIEWPORT_WIDTH, VIEWPORT_WIDTH * aspect_ratio, camera)
         viewport.apply()
 
         camera.position.set(VIEWPORT_WIDTH / 2f, VIEWPORT_WIDTH * aspect_ratio / 2f, 0f)
@@ -117,6 +117,6 @@ class Main : ApplicationAdapter() {
     override fun resize(width: Int, height: Int) {
         super.resize(width, height)
         viewport.update(width, height)
-        camera.position.set(VIEWPORT_WIDTH/2, VIEWPORT_HEIGHT, 0f)
+        camera.position.set(VIEWPORT_WIDTH /2, VIEWPORT_HEIGHT, 0f)
     }
 }
