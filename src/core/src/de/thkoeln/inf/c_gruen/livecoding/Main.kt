@@ -63,9 +63,7 @@ class Main : ApplicationAdapter() {
 
         biHeap.logAll()
 
-        val t = Tests()
-
-        t.testHeapifyUp()
+        Tests.testHeapifyUp()
     }
 
     //Wird 60 mal die Sekunde ausgeführt
