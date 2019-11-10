@@ -63,6 +63,8 @@ class Main : ApplicationAdapter() {
         biHeap = BinominalHeap()
 
         biHeap.logAll()
+
+        Tests.testHeapifyUp()
     }
 
     //Wird 60 mal die Sekunde ausgeführt
