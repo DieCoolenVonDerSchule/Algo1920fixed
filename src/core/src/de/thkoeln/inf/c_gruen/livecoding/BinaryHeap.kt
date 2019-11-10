@@ -91,7 +91,7 @@ class BinaryHeap(){
 
         //TODO
         //Letzten Index finden
-        //Solange swap() auf Parent und Child anwenden bis die Ordnung wiederhergestellt ist
+        //Solange swap() auf Parent und Child a--nwenden bis die Ordnung wiederhergestellt ist
 
     }
 

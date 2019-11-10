@@ -62,6 +62,10 @@ class Main : ApplicationAdapter() {
         biHeap = BinominalHeap()
 
         biHeap.logAll()
+
+        val t = Tests()
+
+        t.testHeapifyUp()
     }
 
     //Wird 60 mal die Sekunde ausgeführt
